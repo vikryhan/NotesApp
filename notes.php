@@ -189,6 +189,14 @@ $result = $conn->query($sql);
     color: #007bff; /* Ganti dengan warna yang diinginkan */
     font-weight: bold;
 }
+.notes-container ul li a {
+    color: #1a0dab; /* Warna tautan yang umum digunakan */
+    text-decoration: underline;
+}
+
+.notes-container ul li a:hover {
+    text-decoration: none;
+}
 
     </style>
 </head>
@@ -216,15 +224,18 @@ $result = $conn->query($sql);
         
         <h3>Semua Catatan</h3>
         <form method="post">
-            <ul>
-                <?php while($row = $result->fetch_assoc()): ?>
-                    <li>
-                        <input type="checkbox" name="note_ids[]" value="<?php echo $row['id']; ?>">
-                        <?php echo nl2br($row['content']); ?>
-                        <div class="date"><?php echo $row['created_at']; ?></div>
-                    </li>
-                <?php endwhile; ?>
-            </ul>
+        <ul>
+    <?php while($row = $result->fetch_assoc()): ?>
+        <li>
+            <div class="note-content">
+                <?php echo nl2br(make_links_clickable(htmlspecialchars($row['content']))); ?>
+            </div>
+            <input type="checkbox" name="note_ids[]" value="<?php echo $row['id']; ?>">
+        </li>
+    <?php endwhile; ?>
+</ul>
+
+
             <div class="delete-actions">
                 <button type="submit" name="delete_notes">Hapus Catatan Terpilih</button>
                 <button type="submit" name="delete_all_notes">Hapus Semua Catatan</button>
@@ -237,4 +248,15 @@ $result = $conn->query($sql);
         </a>
     </div>
 </body>
+<?php
+function make_links_clickable($text) {
+    // RegEx untuk mendeteksi URL
+    return preg_replace(
+        '/(https?:\/\/[^\s]+)/i',
+        '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>',
+        $text
+    );
+}
+?>
+
 </html>
