@@ -7,3 +7,6 @@ Login Page
 
 Register Page
 <img width="916" alt="register page" src="https://github.com/user-attachments/assets/f0a38fa8-5b3e-4de5-a2c1-4bab59836859">
+
+Contoh Catatan
+<img width="918" alt="contoh catatan" src="https://github.com/user-attachments/assets/352e3eb7-9dad-4ae7-81ce-0773c7d8a7d7">
